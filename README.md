@@ -7,5 +7,9 @@ Extended Binary Coded Decimal Interchange Code (EBCDIC) is an eight-bit encoding
 the EBCDIC character set. This is a character set that was developed before ASCII (American Standard Code for
 Information Interchange) became commonly used.
 
+[Supported Code Pages](tables.md)
+
+
+## References 
 * [EBCDIC](https://en.wikipedia.org/wiki/EBCDIC)
 * [Code Tables](https://en.wikibooks.org/wiki/Character_Encodings/Code_Tables/EBCDIC)
