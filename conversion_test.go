@@ -3,6 +3,7 @@ package ebcdic
 import (
 	"errors"
 	"github.com/stretchr/testify/assert"
+	"slices"
 	"testing"
 )
 
@@ -151,8 +152,11 @@ func TestRoundTrips(t *testing.T) {
 
 		unicodeDataOut, err := ToUnicode(theTest.ebcdicData, theTest.codePage)
 
-		//assert.Equalf(t, theTest.err, err, "ToUnicode(%s, %d) \nExpected Err: %v; \nGot Err: %v", theTest.ebcdicData, theTest.codePage, theTest.err, err)
-		//assert.Equalf(t, theTest.unicodeData, string(unicodeDataOut), "ToUnicode(%s, %d) \nExpected Output: %v; \nActual Output: %v", theTest.unicodeData, theTest.codePage, theTest.unicodeData, string(unicodeDataOut))
+		// True round trippers; others can't do EURO round-trip
+		if slices.Contains([]CodePage{CodePage1140, CodePage1141, CodePage1148}, theTest.codePage) {
+			assert.Equalf(t, theTest.err, err, "ToUnicode(%s, %d) \nExpected Err: %v; \nGot Err: %v", theTest.ebcdicData, theTest.codePage, theTest.err, err)
+			assert.Equalf(t, theTest.unicodeData, string(unicodeDataOut), "ToUnicode(%s, %d) \nExpected Output: %v; \nActual Output: %v", theTest.unicodeData, theTest.codePage, theTest.unicodeData, string(unicodeDataOut))
+		}
 
 		ebcdicDataOutOut, err := FromUnicode(unicodeDataOut, theTest.codePage)
 
